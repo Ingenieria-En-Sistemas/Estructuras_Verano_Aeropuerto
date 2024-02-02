@@ -66,7 +66,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Grafo grafo = new Grafo(); // Sin tamaño específico
+        Grafo grafo = new Grafo();
 
         while (true) {
             System.out.println("\n1. Agregar Aeropuerto");
@@ -80,18 +80,18 @@ public class Main {
 
             System.out.print("Ingrese la opción: ");
             int opcion = scanner.nextInt();
-            scanner.nextLine();  // Consumir el salto de línea
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
                     System.out.print("Ingrese el nombre del aeropuerto: ");
                     String nombreAeropuerto = scanner.nextLine();
-                    System.out.print("Ingrese el ID del aeropuerto: ");
-                    Integer idAeropuerto = scanner.nextInt();
+                    int idAeropuerto = grafo.obtenerNuevoIdAeropuerto(); 
                     Aeropuerto nuevoAeropuerto = new Aeropuerto(idAeropuerto, nombreAeropuerto);
                     grafo.agregarAeropuerto(nuevoAeropuerto);
-                    System.out.println("Aeropuerto agregado con éxito.");
+                    System.out.println("\nAeropuerto agregado con éxito.");
                     break;
+
                 case 2:
                     System.out.print("Ingrese el índice del aeropuerto de origen: ");
                     int origen = scanner.nextInt();
@@ -100,7 +100,7 @@ public class Main {
                     System.out.print("Ingrese la duración del vuelo: ");
                     int duracion = scanner.nextInt();
                     grafo.agregarVueloAlosAeropuertos(origen, destino, duracion);
-                    System.out.println("Vuelo agregado con éxito.");
+                    System.out.println("\nVuelo agregado con éxito.");
                     break;
                 case 3:
                     System.out.println("Matriz de Adyacencia: \n");
@@ -138,4 +138,3 @@ public class Main {
         }
     }
 }
-

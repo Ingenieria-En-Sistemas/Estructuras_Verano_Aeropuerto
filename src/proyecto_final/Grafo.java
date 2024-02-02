@@ -31,15 +31,17 @@ public class Grafo {
     public void agregarAeropuerto(Aeropuerto aeropuerto) {
         aeropuertos.add(aeropuerto);
 
-        // Incrementar la cantidad de vértices
         vertices++;
-        
-        // Redimensionar la matriz de adyacencia
+
         int[][] nuevaMatriz = new int[vertices][vertices];
         for (int i = 0; i < vertices - 1; i++) {
             System.arraycopy(matrizAdyacencia[i], 0, nuevaMatriz[i], 0, vertices - 1);
         }
         matrizAdyacencia = nuevaMatriz;
+    }
+
+    public int obtenerNuevoIdAeropuerto() {
+        return aeropuertos.size();
     }
 
     public void agregarVueloAlosAeropuertos(int origen, int destino, int duracion) {
@@ -67,12 +69,12 @@ public class Grafo {
 
         System.out.print("\t");
         for (Aeropuerto aeropuerto : aeropuertos) {
-            System.out.print(aeropuerto.getNombre() + "\t");
+            System.out.print(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")\t");
         }
         System.out.println();
 
         for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.get(i).getNombre() + " \t");
+            System.out.print(aeropuertos.get(i).getNombre() + " (" + aeropuertos.get(i).getId() + ")\t");
             for (int j = 0; j < vertices; j++) {
                 System.out.print(matrizAdyacencia[i][j] + "\t\t");
             }
