@@ -18,28 +18,31 @@ import java.util.Queue;
 
 public class Grafo {
 
-    private final int vertices;
+    private int vertices;
     private final List<Aeropuerto> aeropuertos;
-    private final int[][] matrizAdyacencia;
+    private int[][] matrizAdyacencia;
 
-    public Grafo(int numAeropuertos) {
-        this.vertices = numAeropuertos;
+    public Grafo() {
+        this.vertices = 0;
         this.aeropuertos = new ArrayList<>();
         this.matrizAdyacencia = new int[vertices][vertices];
-
-        for (int i = 0; i < vertices; i++) {
-            for (int j = 0; j < vertices; j++) {
-                matrizAdyacencia[i][j] = 0;
-            }
-        }
     }
 
     public void agregarAeropuerto(Aeropuerto aeropuerto) {
         aeropuertos.add(aeropuerto);
+
+        // Incrementar la cantidad de vértices
+        vertices++;
+        
+        // Redimensionar la matriz de adyacencia
+        int[][] nuevaMatriz = new int[vertices][vertices];
+        for (int i = 0; i < vertices - 1; i++) {
+            System.arraycopy(matrizAdyacencia[i], 0, nuevaMatriz[i], 0, vertices - 1);
+        }
+        matrizAdyacencia = nuevaMatriz;
     }
 
     public void agregarVueloAlosAeropuertos(int origen, int destino, int duracion) {
-
         matrizAdyacencia[origen][destino] = duracion;
         matrizAdyacencia[destino][origen] = duracion;
 
