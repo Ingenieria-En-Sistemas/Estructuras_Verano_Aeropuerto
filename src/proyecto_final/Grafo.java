@@ -141,7 +141,7 @@ public class Grafo {
             }
         }
 
-        System.out.println("\nDistancias mínimas desde el aeropuerto " + aeropuertos.get(inicio).getNombre() + ":");
+        System.out.println("\nDistancias minimas desde el aeropuerto " + aeropuertos.get(inicio).getNombre() + ":");
         for (int i = 0; i < vertices; i++) {
             System.out.println(aeropuertos.get(i).getNombre() + ": " + (distancias[i] == Integer.MAX_VALUE ? "No alcanzable" : distancias[i]));
         }
