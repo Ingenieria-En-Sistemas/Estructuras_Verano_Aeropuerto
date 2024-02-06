@@ -60,20 +60,37 @@ public class Grafo {
     }
 
     public void mostrarMatrizAdyacenciaConNombres() {
-        System.out.print("  ");
+        System.out.print("\t");
         for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + "\t");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " (" + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + ")\t");
         }
         System.out.println();
 
         for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " \t");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " (" + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + ")\t");
             for (int j = 0; j < vertices; j++) {
                 System.out.print(matrizAdyacencia[i][j] + "\t\t");
             }
             System.out.println();
         }
     }
+    
+//     public void mostrarMatrizAdyacenciaConNombres() {
+//
+//        System.out.print("\t");
+//        for (Aeropuerto aeropuerto : aeropuertos) {
+//            System.out.print(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")\t");
+//        }
+//        System.out.println();
+//
+//        for (int i = 0; i < vertices; i++) {
+//            System.out.print(aeropuertos.get(i).getNombre() + " (" + aeropuertos.get(i).getId() + ")\t");
+//            for (int j = 0; j < vertices; j++) {
+//                System.out.print(matrizAdyacencia[i][j] + "\t\t");
+//            }
+//            System.out.println();
+//        }
+//    }
 
     public void BFS(int inicio) {
         boolean[] visitados = new boolean[vertices];
