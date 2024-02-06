@@ -33,8 +33,11 @@ public class ListaAeropuertos {
         if (nodoInicial == null) {
             nodoInicial = nuevoNodo;
         } else {
-            nuevoNodo.setSiguiente(nodoInicial);
-            nodoInicial = nuevoNodo;
+            NodoAeropuerto temp = nodoInicial;
+            while (temp.getSiguiente() != null) {
+                temp = temp.getSiguiente();
+            }
+            temp.setSiguiente(nuevoNodo);
         }
     }
 
@@ -63,6 +66,16 @@ public class ListaAeropuertos {
             }
             temp = temp.getSiguiente();
         }
+    }
+
+    public int size() {
+        int count = 0;
+        NodoAeropuerto temp = nodoInicial;
+        while (temp != null) {
+            count++;
+            temp = temp.getSiguiente();
+        }
+        return count;
     }
 
     public void mostrarAeropuertos() {

@@ -35,7 +35,7 @@ public class Grafo {
     }
 
     public int obtenerNuevoIdAeropuerto() {
-        return aeropuertos.listaVacia() ? 0 : aeropuertos.getNodoInicial().getAeropuerto().getId() + 1;
+        return aeropuertos.size();
     }
 
     public void agregarVueloAlosAeropuertos(int origen, int destino, int duracion) {
