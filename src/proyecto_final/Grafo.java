@@ -4,32 +4,26 @@
  */
 package proyecto_final;
 
-/**
- *
- * @author josue
- */
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Grafo {
 
     private int vertices;
-    private final List<Aeropuerto> aeropuertos;
+    private final ListaAeropuertos aeropuertos;
     private int[][] matrizAdyacencia;
 
     public Grafo() {
         this.vertices = 0;
-        this.aeropuertos = new ArrayList<>();
+        this.aeropuertos = new ListaAeropuertos();
         this.matrizAdyacencia = new int[vertices][vertices];
     }
 
     public void agregarAeropuerto(Aeropuerto aeropuerto) {
-        aeropuertos.add(aeropuerto);
+        aeropuertos.agregarAeropuerto(aeropuerto);
 
         vertices++;
 
@@ -41,15 +35,15 @@ public class Grafo {
     }
 
     public int obtenerNuevoIdAeropuerto() {
-        return aeropuertos.size();
+        return aeropuertos.listaVacia() ? 0 : aeropuertos.getNodoInicial().getAeropuerto().getId() + 1;
     }
 
     public void agregarVueloAlosAeropuertos(int origen, int destino, int duracion) {
         matrizAdyacencia[origen][destino] = duracion;
         matrizAdyacencia[destino][origen] = duracion;
 
-        Aeropuerto aeropuertoOrigen = aeropuertos.get(origen);
-        Aeropuerto aeropuertoDestino = aeropuertos.get(destino);
+        Aeropuerto aeropuertoOrigen = aeropuertos.obtenerAeropuertoPorIndice(origen);
+        Aeropuerto aeropuertoDestino = aeropuertos.obtenerAeropuertoPorIndice(destino);
 
         Vuelo vuelo = new Vuelo(aeropuertoOrigen, aeropuertoDestino, duracion);
         aeropuertoOrigen.agregarVuelo(vuelo);
@@ -68,17 +62,22 @@ public class Grafo {
     public void mostrarMatrizAdyacenciaConNombres() {
 
         System.out.print("\t");
-        for (Aeropuerto aeropuerto : aeropuertos) {
-            System.out.print(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")\t");
+        ListaAeropuertos.NodoAeropuerto temp = aeropuertos.getNodoInicial();
+        while (temp != null) {
+            System.out.print(temp.getAeropuerto().getNombre() + " (" + temp.getAeropuerto().getId() + ")\t");
+            temp = temp.getSiguiente();
         }
         System.out.println();
 
-        for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.get(i).getNombre() + " (" + aeropuertos.get(i).getId() + ")\t");
+        ListaAeropuertos.NodoAeropuerto tempFila = aeropuertos.getNodoInicial();
+        while (tempFila != null) {
+            System.out.print(tempFila.getAeropuerto().getNombre() + " (" + tempFila.getAeropuerto().getId() + ")\t");
+            int indiceFila = aeropuertos.obtenerIndiceAeropuerto(tempFila.getAeropuerto());
             for (int j = 0; j < vertices; j++) {
-                System.out.print(matrizAdyacencia[i][j] + "\t\t");
+                System.out.print(matrizAdyacencia[indiceFila][j] + "\t\t");
             }
             System.out.println();
+            tempFila = tempFila.getSiguiente();
         }
     }
 
@@ -91,7 +90,7 @@ public class Grafo {
 
         while (!cola.isEmpty()) {
             int actual = cola.poll();
-            System.out.print(aeropuertos.get(actual).getNombre() + " ");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(actual).getNombre() + " ");
 
             for (int i = 0; i < vertices; i++) {
                 if (matrizAdyacencia[actual][i] != 0 && !visitados[i]) {
@@ -111,7 +110,7 @@ public class Grafo {
 
     private void DFSUtil(int v, boolean[] visitados) {
         visitados[v] = true;
-        System.out.print(aeropuertos.get(v).getNombre() + " ");
+        System.out.print(aeropuertos.obtenerAeropuertoPorIndice(v).getNombre() + " ");
 
         for (int i = 0; i < vertices; i++) {
             if (matrizAdyacencia[v][i] != 0 && !visitados[i]) {
@@ -141,30 +140,36 @@ public class Grafo {
             }
         }
 
-        System.out.println("\nDistancias minimas desde el aeropuerto " + aeropuertos.get(inicio).getNombre() + ":");
+        System.out.println("\nDistancias minimas desde el aeropuerto " + aeropuertos.obtenerAeropuertoPorIndice(inicio).getNombre() + ":");
         for (int i = 0; i < vertices; i++) {
-            System.out.println(aeropuertos.get(i).getNombre() + ": " + (distancias[i] == Integer.MAX_VALUE ? "No alcanzable" : distancias[i]));
+            System.out.println(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + ": " + (distancias[i] == Integer.MAX_VALUE ? "No alcanzable" : distancias[i]));
         }
     }
 
     public void bubbleSort() {
+        ListaAeropuertos.NodoAeropuerto[] nodos = new ListaAeropuertos.NodoAeropuerto[vertices];
+        ListaAeropuertos.NodoAeropuerto temp = aeropuertos.getNodoInicial();
+        for (int i = 0; i < vertices; i++) {
+            nodos[i] = temp;
+            temp = temp.getSiguiente();
+        }
+
         for (int i = 0; i < vertices - 1; i++) {
             for (int j = 0; j < vertices - i - 1; j++) {
-                int vuelosA = aeropuertos.get(j).getVuelos().size();
-                int vuelosB = aeropuertos.get(j + 1).getVuelos().size();
+                int vuelosA = nodos[j].getAeropuerto().getVuelos().size();
+                int vuelosB = nodos[j + 1].getAeropuerto().getVuelos().size();
 
                 if (vuelosA > vuelosB) {
-                    Aeropuerto temp = aeropuertos.get(j);
-                    aeropuertos.set(j, aeropuertos.get(j + 1));
-                    aeropuertos.set(j + 1, temp);
+                    ListaAeropuertos.NodoAeropuerto tempNodo = nodos[j];
+                    nodos[j] = nodos[j + 1];
+                    nodos[j + 1] = tempNodo;
                 }
             }
         }
 
         System.out.println("\nAeropuertos ordenados por cantidad de vuelos (Bubble Sort):");
-        for (Aeropuerto aeropuerto : aeropuertos) {
-            System.out.println(aeropuerto.getNombre() + ": " + aeropuerto.getVuelos().size() + " vuelos");
+        for (ListaAeropuertos.NodoAeropuerto nodo : nodos) {
+            System.out.println(nodo.getAeropuerto().getNombre() + ": " + nodo.getAeropuerto().getVuelos().size() + " vuelos");
         }
     }
-
 }
