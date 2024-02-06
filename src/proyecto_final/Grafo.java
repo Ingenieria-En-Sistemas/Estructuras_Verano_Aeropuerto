@@ -62,7 +62,7 @@ public class Grafo {
     public void mostrarMatrizAdyacenciaConNombres() {
         System.out.print("  ");
         for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + "\t");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + "\t");
         }
         System.out.println();
 
