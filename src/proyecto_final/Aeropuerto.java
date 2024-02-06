@@ -14,7 +14,7 @@ import java.util.List;
 public class Aeropuerto {
     private int id;
     private String nombre;
-    private List<Vuelo> vuelos;  
+    private List<Vuelo> vuelos;
 
     public Aeropuerto(int id, String nombre) {
         this.id = id;
@@ -24,6 +24,10 @@ public class Aeropuerto {
 
     public int getId() {
         return id;
+    }
+
+    public String setNombre(String nombre) {
+        return this.nombre = nombre;
     }
 
     public String getNombre() {
@@ -47,4 +51,3 @@ public class Aeropuerto {
                 '}';
     }
 }
-

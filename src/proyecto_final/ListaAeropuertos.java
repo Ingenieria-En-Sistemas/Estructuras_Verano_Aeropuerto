@@ -37,8 +37,8 @@ public class ListaAeropuertos {
             nodoInicial = nuevoNodo;
         }
     }
-    
-     public Aeropuerto obtenerAeropuertoPorIndice(int indice) {
+
+    public Aeropuerto obtenerAeropuertoPorIndice(int indice) {
         NodoAeropuerto actual = nodoInicial;
         int contador = 0;
 
@@ -53,6 +53,17 @@ public class ListaAeropuertos {
         return null; // Si no se encuentra el aeropuerto en el índice dado
     }
 
+    public void modificarAeropuerto(int id, String nombre) {
+        NodoAeropuerto temp = nodoInicial;
+
+        while (temp != null) {
+            if (temp.getAeropuerto().getId() == id) {
+                temp.getAeropuerto().setNombre(nombre);
+                break;
+            }
+            temp = temp.getSiguiente();
+        }
+    }
 
     public void mostrarAeropuertos() {
         NodoAeropuerto temp = nodoInicial;

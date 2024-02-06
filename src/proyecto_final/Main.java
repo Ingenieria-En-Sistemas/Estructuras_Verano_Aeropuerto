@@ -94,7 +94,7 @@ public class Main {
 
                 case 7:
                     System.out.println("\nRecorrido BubbleSort: 🔄");
-                    grafo.bubbleSort();
+                    grafo.BubbleSort();
                     break;
 
                 case 8:
