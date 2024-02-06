@@ -23,7 +23,8 @@ public class Main {
             System.out.println("5. 🛰️ Realizar Recorrido DFS");
             System.out.println("6. 🌐 Realizar Recorrido Dijkstra");
             System.out.println("7. 🔄 Realizar Recorrido BubbleSort");
-            System.out.println("8. 🚪 Salir");
+            System.out.println("8. 🗑️ Eliminar Aeropuerto");
+            System.out.println("9. 🚪 Salir");
             System.out.println("*********************************\n");
 
             System.out.print("Ingrese la opción: ");
@@ -94,10 +95,17 @@ public class Main {
 
                 case 7:
                     System.out.println("\nRecorrido BubbleSort: 🔄");
-                    grafo.BubbleSort();
+                    grafo.bubbleSort();
                     break;
 
                 case 8:
+                    System.out.print("Ingrese el índice del aeropuerto a eliminar: ");
+                    int idAeropuertoAEliminar = scanner.nextInt();
+                    grafo.eliminarAeropuerto(idAeropuertoAEliminar);
+                    System.out.println("\n//////// Aeropuerto eliminado con éxito. 🚪 ////////\n");
+                    break;
+
+                case 9:
                     System.out.println("Saliendo del programa.");
                     System.exit(0);
                     break;

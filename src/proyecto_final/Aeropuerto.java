@@ -4,9 +4,6 @@
  */
 package proyecto_final;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author josue
@@ -14,12 +11,12 @@ import java.util.List;
 public class Aeropuerto {
     private int id;
     private String nombre;
-    private List<Vuelo> vuelos;
+    private ListaVuelos vuelos;
 
     public Aeropuerto(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.vuelos = new ArrayList<>();
+        this.vuelos = new ListaVuelos();
     }
 
     public int getId() {
@@ -34,12 +31,12 @@ public class Aeropuerto {
         return nombre;
     }
 
-    public List<Vuelo> getVuelos() {
+    public ListaVuelos getVuelos() {
         return vuelos;
     }
 
     public void agregarVuelo(Vuelo vuelo) {
-        vuelos.add(vuelo);
+        vuelos.agregarVuelo(vuelo);
     }
 
     @Override

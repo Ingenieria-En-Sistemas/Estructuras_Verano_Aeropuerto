@@ -34,6 +34,20 @@ public class Grafo {
         matrizAdyacencia = nuevaMatriz;
     }
 
+    public void eliminarAeropuerto(int id) {
+        aeropuertos.eliminarAeropuerto(id);
+
+        vertices--;
+
+        int[][] nuevaMatriz = new int[vertices][vertices];
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                nuevaMatriz[i][j] = matrizAdyacencia[i < id ? i : i + 1][j < id ? j : j + 1];
+            }
+        }
+        matrizAdyacencia = nuevaMatriz;
+    }
+
     public int obtenerNuevoIdAeropuerto() {
         return aeropuertos.size();
     }
@@ -62,36 +76,38 @@ public class Grafo {
     public void mostrarMatrizAdyacenciaConNombres() {
         System.out.print("\t");
         for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " (" + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + ")\t");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " ("
+                    + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + ")\t");
         }
         System.out.println();
 
         for (int i = 0; i < vertices; i++) {
-            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " (" + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + ")\t");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(i).getNombre() + " ("
+                    + aeropuertos.obtenerAeropuertoPorIndice(i).getId() + ")\t");
             for (int j = 0; j < vertices; j++) {
                 System.out.print(matrizAdyacencia[i][j] + "\t\t");
             }
             System.out.println();
         }
     }
-    
-//     public void mostrarMatrizAdyacenciaConNombres() {
-//
-//        System.out.print("\t");
-//        for (Aeropuerto aeropuerto : aeropuertos) {
-//            System.out.print(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")\t");
-//        }
-//        System.out.println();
-//
-//        for (int i = 0; i < vertices; i++) {
-//            System.out.print(aeropuertos.get(i).getNombre() + " (" + aeropuertos.get(i).getId() + ")\t");
-//            for (int j = 0; j < vertices; j++) {
-//                System.out.print(matrizAdyacencia[i][j] + "\t\t");
-//            }
-//            System.out.println();
-//        }
-//    }
 
+    // public void mostrarMatrizAdyacenciaConNombres() {
+    //
+    // System.out.print("\t");
+    // for (Aeropuerto aeropuerto : aeropuertos) {
+    // System.out.print(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")\t");
+    // }
+    // System.out.println();
+    //
+    // for (int i = 0; i < vertices; i++) {
+    // System.out.print(aeropuertos.get(i).getNombre() + " (" +
+    // aeropuertos.get(i).getId() + ")\t");
+    // for (int j = 0; j < vertices; j++) {
+    // System.out.print(matrizAdyacencia[i][j] + "\t\t");
+    // }
+    // System.out.println();
+    // }
+    // }
     public void BFS(int inicio) {
         boolean[] visitados = new boolean[vertices];
         Queue<Integer> cola = new LinkedList<>();
@@ -101,7 +117,7 @@ public class Grafo {
 
         while (!cola.isEmpty()) {
             int actual = cola.poll();
-            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(actual).getNombre() + " ");
+            System.out.print(aeropuertos.obtenerAeropuertoPorIndice(actual).getNombre() + "->");
 
             for (int i = 0; i < vertices; i++) {
                 if (matrizAdyacencia[actual][i] != 0 && !visitados[i]) {
@@ -121,7 +137,7 @@ public class Grafo {
 
     private void DFSUtil(int v, boolean[] visitados) {
         visitados[v] = true;
-        System.out.print(aeropuertos.obtenerAeropuertoPorIndice(v).getNombre() + " ");
+        System.out.print(aeropuertos.obtenerAeropuertoPorIndice(v).getNombre() + "->");
 
         for (int i = 0; i < vertices; i++) {
             if (matrizAdyacencia[v][i] != 0 && !visitados[i]) {
@@ -159,7 +175,7 @@ public class Grafo {
         }
     }
 
-    public void BubbleSort() {
+    public void bubbleSort() {
         for (int i = 0; i < vertices - 1; i++) {
             for (int j = 0; j < vertices - i - 1; j++) {
                 if (aeropuertos.obtenerAeropuertoPorIndice(j).getId() > aeropuertos.obtenerAeropuertoPorIndice(j + 1)
@@ -170,5 +186,12 @@ public class Grafo {
                 }
             }
         }
+
+        System.out.println("\nAeropuertos ordenados por cantidad de vuelos (Bubble Sort):");
+        for (int i = 0; i < vertices; i++) {
+            Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
+            System.out.println(aeropuerto.getNombre() + ": " + aeropuerto.getVuelos().size() + " vuelos");
+        }
     }
+
 }
