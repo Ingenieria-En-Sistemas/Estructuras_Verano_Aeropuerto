@@ -11,6 +11,25 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Grafo grafo = new Grafo();
+        Grafo grafo2 = new Grafo();
+
+        grafo2.agregarAeropuerto(new Aeropuerto(0, "\tA"));
+        grafo2.agregarAeropuerto(new Aeropuerto(1, "\tB"));
+        grafo2.agregarAeropuerto(new Aeropuerto(2, "\tC"));
+        grafo2.agregarAeropuerto(new Aeropuerto(3, "\tD"));
+
+        // Suponiendo que grafo2 es una instancia válida de la clase Grafo
+
+        grafo2.agregarVueloAlosAeropuertos(0, 1, 2); // Desde 0 hasta 1, distancia 2
+        grafo2.agregarVueloAlosAeropuertos(0, 2, 5); // Desde 0 hasta 2, distancia 5
+        grafo2.agregarVueloAlosAeropuertos(1, 0, 2); // Desde 1 hasta 0, distancia 2
+        grafo2.agregarVueloAlosAeropuertos(1, 2, 1); // Desde 1 hasta 2, distancia 1
+        grafo2.agregarVueloAlosAeropuertos(1, 3, 7); // Desde 1 hasta 3, distancia 7
+        grafo2.agregarVueloAlosAeropuertos(2, 0, 5); // Desde 2 hasta 0, distancia 5
+        grafo2.agregarVueloAlosAeropuertos(2, 1, 1); // Desde 2 hasta 1, distancia 1
+        grafo2.agregarVueloAlosAeropuertos(2, 3, 3); // Desde 2 hasta 3, distancia 3
+        grafo2.agregarVueloAlosAeropuertos(3, 1, 7); // Desde 3 hasta 1, distancia 7
+        grafo2.agregarVueloAlosAeropuertos(3, 2, 3); // Desde 3 hasta 2, distancia 3
 
         while (true) {
             System.out.println("\n*********************************");
@@ -24,7 +43,9 @@ public class Main {
             System.out.println("6. 🌐 Realizar Recorrido Dijkstra");
             System.out.println("7. 🔄 Realizar Recorrido BubbleSort");
             System.out.println("8. 🗑️ Eliminar Aeropuerto");
-            System.out.println("9. 🚪 Salir");
+            System.out.println("9. 🗑️ Mostrar Vuelos.");
+            System.out.println("10. 🗑️ Eliminar Vuelo.");
+            System.out.println("11. 🚪 Salir");
             System.out.println("*********************************\n");
 
             System.out.print("Ingrese la opción: ");
@@ -95,7 +116,7 @@ public class Main {
 
                 case 7:
                     System.out.println("\nRecorrido BubbleSort: 🔄");
-                    grafo.bubbleSort();
+                    grafo.BubbleSort();
                     break;
 
                 case 8:
@@ -106,13 +127,27 @@ public class Main {
                     break;
 
                 case 9:
+                    System.out.println("Vuelos: ");
+                    grafo.mostrarTodosLosVuelos();
+                    break;
+
+                case 10:
+                    System.out.print("Ingrese el índice del vuelo a eliminar: ");
+                    int idVueloAEliminar = scanner.nextInt();
+                    grafo.eliminarVuelo(idVueloAEliminar);
+                    System.out.println("\n//////// Vuelo eliminado con éxito. 🚪 ////////\n");
+                    break;
+
+                case 11:
                     System.out.println("Saliendo del programa.");
+                    scanner.close();
                     System.exit(0);
                     break;
 
                 default:
                     System.out.println("Opción no válida. Inténtelo de nuevo.");
             }
+
         }
     }
 }

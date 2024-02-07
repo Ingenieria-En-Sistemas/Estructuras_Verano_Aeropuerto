@@ -48,6 +48,36 @@ public class Grafo {
         matrizAdyacencia = nuevaMatriz;
     }
 
+    public void eliminarVuelo(int id) {
+        for (int i = 0; i < vertices; i++) {
+            Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
+            for (int j = 0; j < aeropuerto.getVuelos().size(); j++) {
+                Vuelo vuelo = aeropuerto.getVuelos().obtenerVueloPorIndice(j);
+                if (vuelo.getId() == id) {
+                    aeropuerto.getVuelos().eliminarVuelo(id);
+                    matrizAdyacencia[i][aeropuertos.obtenerIndiceAeropuerto(vuelo.getDestino().getId())] = 0;
+                    matrizAdyacencia[aeropuertos.obtenerIndiceAeropuerto(vuelo.getDestino().getId())][i] = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    public void mostrarTodosLosVuelos() {
+        for (int i = 0; i < vertices; i++) {
+            Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
+            System.out.println("\nVuelos desde " + aeropuerto.getNombre() + " (" + aeropuerto.getId() + "):");
+            for (int j = 0; j < aeropuerto.getVuelos().size(); j++) {
+                Vuelo vuelo = aeropuerto.getVuelos().obtenerVueloPorIndice(j);
+                System.out.println("ID de Vuelo: " + vuelo.getId() + ", " + vuelo.getOrigen().getNombre() + " ("
+                        + vuelo.getOrigen().getId() + ") -> "
+                        + vuelo.getDestino().getNombre() + " (" + vuelo.getDestino().getId() + ") en "
+                        + vuelo.getDuracion()
+                        + " minutos");
+            }
+        }
+    }
+
     public int obtenerNuevoIdAeropuerto() {
         return aeropuertos.size();
     }
@@ -174,15 +204,51 @@ public class Grafo {
                     + (distancias[i] == Integer.MAX_VALUE ? "No alcanzable" : distancias[i]));
         }
     }
+    /*
+     * public void bubbleSort() {
+     * for (int i = 0; i < vertices - 1; i++) {
+     * for (int j = 0; j < vertices - i - 1; j++) {
+     * if (aeropuertos.obtenerAeropuertoPorIndice(j).getId() >
+     * aeropuertos.obtenerAeropuertoPorIndice(j + 1)
+     * .getId()) {
+     * Aeropuerto temp = aeropuertos.obtenerAeropuertoPorIndice(j);
+     * aeropuertos.modificarAeropuerto(j, aeropuertos.obtenerAeropuertoPorIndice(j +
+     * 1));
+     * aeropuertos.modificarAeropuerto(j + 1, temp);
+     * }
+     * }
+     * }
+     * 
+     * System.out.
+     * println("\nAeropuertos ordenados por cantidad de vuelos (Bubble Sort):");
+     * for (int i = 0; i < vertices; i++) {
+     * Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
+     * System.out.println(aeropuerto.getNombre() + ": " +
+     * aeropuerto.getVuelos().size() + " vuelos");
+     * }
+     * }
+     */
 
-    public void bubbleSort() {
+    public double averageFlightDuration(Aeropuerto aeropuerto) {
+        int total = 0;
+        int contador = 0;
+        for (int i = 0; i < vertices; i++) {
+            if (matrizAdyacencia[aeropuerto.getId()][i] != 0) {
+                total += matrizAdyacencia[aeropuerto.getId()][i];
+                contador++;
+            }
+        }
+        return (double) total / contador;
+    }
+
+    public void BubbleSort() {
         for (int i = 0; i < vertices - 1; i++) {
             for (int j = 0; j < vertices - i - 1; j++) {
                 if (aeropuertos.obtenerAeropuertoPorIndice(j).getId() > aeropuertos.obtenerAeropuertoPorIndice(j + 1)
                         .getId()) {
                     Aeropuerto temp = aeropuertos.obtenerAeropuertoPorIndice(j);
-                    aeropuertos.modificarAeropuerto(j, aeropuertos.obtenerAeropuertoPorIndice(j + 1).getNombre());
-                    aeropuertos.modificarAeropuerto(j + 1, temp.getNombre());
+                    aeropuertos.modificarAeropuerto(j, aeropuertos.obtenerAeropuertoPorIndice(j + 1));
+                    aeropuertos.modificarAeropuerto(j + 1, temp);
                 }
             }
         }
@@ -193,5 +259,4 @@ public class Grafo {
             System.out.println(aeropuerto.getNombre() + ": " + aeropuerto.getVuelos().size() + " vuelos");
         }
     }
-
 }

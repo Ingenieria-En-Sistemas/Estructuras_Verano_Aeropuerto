@@ -1,12 +1,14 @@
 package proyecto_final;
 
 public class Vuelo {
-
+    private static int contadorID = 0;
+    private int id;
     private Aeropuerto origen;
     private Aeropuerto destino;
     private int duracion;
 
     public Vuelo(Aeropuerto origen, Aeropuerto destino, int duracion) {
+        this.id = contadorID++;
         this.origen = origen;
         this.destino = destino;
         this.duracion = duracion;
@@ -45,5 +47,13 @@ public class Vuelo {
         sb.append(", duracion=").append(duracion);
         sb.append('}');
         return sb.toString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -22,6 +22,10 @@ public class NodoAeropuerto {
         return aeropuerto;
     }
 
+    public void setAeropuerto(Aeropuerto aeropuerto) {
+        this.aeropuerto = aeropuerto;
+    }
+
     public NodoAeropuerto getSiguiente() {
         return siguiente;
     }
