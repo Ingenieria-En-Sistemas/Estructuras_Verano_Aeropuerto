@@ -28,6 +28,43 @@ public class ListaAeropuertos {
         return this.nodoInicial == null;
     }
 
+    public Aeropuerto get(int index) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+        }
+
+        NodoAeropuerto actual = nodoInicial;
+        int contador = 0;
+
+        while (actual != null) {
+            if (contador == index) {
+                return actual.getAeropuerto();
+            }
+            actual = actual.getSiguiente();
+            contador++;
+        }
+
+        return null;
+    }
+
+    public void set(int index, Aeropuerto aeropuerto) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+        }
+
+        NodoAeropuerto actual = nodoInicial;
+        int contador = 0;
+
+        while (actual != null) {
+            if (contador == index) {
+                actual.setAeropuerto(aeropuerto);
+                return;
+            }
+            actual = actual.getSiguiente();
+            contador++;
+        }
+    }
+
     public void agregarAeropuerto(Aeropuerto aeropuerto) {
         NodoAeropuerto nuevoNodo = new NodoAeropuerto(aeropuerto);
         if (nodoInicial == null) {

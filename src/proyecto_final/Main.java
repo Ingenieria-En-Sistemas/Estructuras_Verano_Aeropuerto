@@ -116,7 +116,7 @@ public class Main {
 
                 case 7:
                     System.out.println("\nRecorrido BubbleSort: 🔄");
-                    grafo.BubbleSort();
+                    grafo.bubbleSort();
                     break;
 
                 case 8:
@@ -132,7 +132,7 @@ public class Main {
                     break;
 
                 case 10:
-                    System.out.print("Ingrese el índice del vuelo a eliminar: ");
+                    System.out.print("Ingrese el ID del vuelo a eliminar: ");
                     int idVueloAEliminar = scanner.nextInt();
                     grafo.eliminarVuelo(idVueloAEliminar);
                     System.out.println("\n//////// Vuelo eliminado con éxito. 🚪 ////////\n");

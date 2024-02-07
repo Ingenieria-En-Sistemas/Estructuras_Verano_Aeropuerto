@@ -94,15 +94,6 @@ public class Grafo {
         aeropuertoDestino.agregarVuelo(vuelo);
     }
 
-    public void mostrarMatrizAdyacencia() {
-        for (int i = 0; i < vertices; i++) {
-            for (int j = 0; j < vertices; j++) {
-                System.out.print(matrizAdyacencia[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    }
-
     public void mostrarMatrizAdyacenciaConNombres() {
         System.out.print("\t");
         for (int i = 0; i < vertices; i++) {
@@ -121,23 +112,6 @@ public class Grafo {
         }
     }
 
-    // public void mostrarMatrizAdyacenciaConNombres() {
-    //
-    // System.out.print("\t");
-    // for (Aeropuerto aeropuerto : aeropuertos) {
-    // System.out.print(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")\t");
-    // }
-    // System.out.println();
-    //
-    // for (int i = 0; i < vertices; i++) {
-    // System.out.print(aeropuertos.get(i).getNombre() + " (" +
-    // aeropuertos.get(i).getId() + ")\t");
-    // for (int j = 0; j < vertices; j++) {
-    // System.out.print(matrizAdyacencia[i][j] + "\t\t");
-    // }
-    // System.out.println();
-    // }
-    // }
     public void BFS(int inicio) {
         boolean[] visitados = new boolean[vertices];
         Queue<Integer> cola = new LinkedList<>();
@@ -204,51 +178,17 @@ public class Grafo {
                     + (distancias[i] == Integer.MAX_VALUE ? "No alcanzable" : distancias[i]));
         }
     }
-    /*
-     * public void bubbleSort() {
-     * for (int i = 0; i < vertices - 1; i++) {
-     * for (int j = 0; j < vertices - i - 1; j++) {
-     * if (aeropuertos.obtenerAeropuertoPorIndice(j).getId() >
-     * aeropuertos.obtenerAeropuertoPorIndice(j + 1)
-     * .getId()) {
-     * Aeropuerto temp = aeropuertos.obtenerAeropuertoPorIndice(j);
-     * aeropuertos.modificarAeropuerto(j, aeropuertos.obtenerAeropuertoPorIndice(j +
-     * 1));
-     * aeropuertos.modificarAeropuerto(j + 1, temp);
-     * }
-     * }
-     * }
-     * 
-     * System.out.
-     * println("\nAeropuertos ordenados por cantidad de vuelos (Bubble Sort):");
-     * for (int i = 0; i < vertices; i++) {
-     * Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
-     * System.out.println(aeropuerto.getNombre() + ": " +
-     * aeropuerto.getVuelos().size() + " vuelos");
-     * }
-     * }
-     */
 
-    public double averageFlightDuration(Aeropuerto aeropuerto) {
-        int total = 0;
-        int contador = 0;
-        for (int i = 0; i < vertices; i++) {
-            if (matrizAdyacencia[aeropuerto.getId()][i] != 0) {
-                total += matrizAdyacencia[aeropuerto.getId()][i];
-                contador++;
-            }
-        }
-        return (double) total / contador;
-    }
-
-    public void BubbleSort() {
+    public void bubbleSort() {
         for (int i = 0; i < vertices - 1; i++) {
             for (int j = 0; j < vertices - i - 1; j++) {
-                if (aeropuertos.obtenerAeropuertoPorIndice(j).getId() > aeropuertos.obtenerAeropuertoPorIndice(j + 1)
-                        .getId()) {
-                    Aeropuerto temp = aeropuertos.obtenerAeropuertoPorIndice(j);
-                    aeropuertos.modificarAeropuerto(j, aeropuertos.obtenerAeropuertoPorIndice(j + 1));
-                    aeropuertos.modificarAeropuerto(j + 1, temp);
+                int vuelosA = aeropuertos.get(j).getVuelos().size();
+                int vuelosB = aeropuertos.get(j + 1).getVuelos().size();
+
+                if (vuelosA > vuelosB) {
+                    Aeropuerto temp = aeropuertos.get(j);
+                    aeropuertos.set(j, aeropuertos.get(j + 1));
+                    aeropuertos.set(j + 1, temp);
                 }
             }
         }
@@ -259,4 +199,5 @@ public class Grafo {
             System.out.println(aeropuerto.getNombre() + ": " + aeropuerto.getVuelos().size() + " vuelos");
         }
     }
+
 }
