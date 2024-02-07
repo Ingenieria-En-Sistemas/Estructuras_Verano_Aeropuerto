@@ -18,7 +18,6 @@ public class Main {
         grafo2.agregarAeropuerto(new Aeropuerto(2, "\tC"));
         grafo2.agregarAeropuerto(new Aeropuerto(3, "\tD"));
 
-        // Suponiendo que grafo2 es una instancia válida de la clase Grafo
 
         grafo2.agregarVueloAlosAeropuertos(0, 1, 2); // Desde 0 hasta 1, distancia 2
         grafo2.agregarVueloAlosAeropuertos(0, 2, 5); // Desde 0 hasta 2, distancia 5
@@ -38,13 +37,13 @@ public class Main {
             System.out.println("1. ✈️ Agregar Aeropuerto");
             System.out.println("2. 🌐 Agregar Vuelo");
             System.out.println("3. 📊 Mostrar Matriz de Adyacencia");
-            System.out.println("4. 🚀 Realizar Recorrido BFS");
-            System.out.println("5. 🛰️ Realizar Recorrido DFS");
-            System.out.println("6. 🌐 Realizar Recorrido Dijkstra");
+            System.out.println("4. 🚀 Mostrar Vuelos");
+            System.out.println("5. 🗑️ Eliminar Aeropuerto");
+            System.out.println("6. 🗑️ Eliminar Vuelo.");
             System.out.println("7. 🔄 Realizar Recorrido BubbleSort");
-            System.out.println("8. 🗑️ Eliminar Aeropuerto");
-            System.out.println("9. 🗑️ Mostrar Vuelos.");
-            System.out.println("10. 🗑️ Eliminar Vuelo.");
+            System.out.println("8. 🛰️ Realizar Recorrido DFS");
+            System.out.println("9. 🚀 Realizar Recorrido BFS.");
+            System.out.println("10. 🌐 Realizar Recorrido Dijkstra");
             System.out.println("11. 🚪 Salir");
             System.out.println("*********************************\n");
 
@@ -79,18 +78,31 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("\nRecorrido BFS: 🚀");
-                    try {
-                        System.out.print("Ingrese el índice del aeropuerto de inicio: ");
-                        int inicioBFS = scanner.nextInt();
-                        grafo.BFS(inicioBFS);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error: Índice fuera de rango. Inténtelo de nuevo.");
-                        scanner.nextLine();
-                    }
+                    System.out.println("Vuelos: ");
+                    grafo.mostrarTodosLosVuelos();
                     break;
 
                 case 5:
+                    System.out.print("Ingrese el índice del aeropuerto a eliminar: ");
+                    int idAeropuertoAEliminar = scanner.nextInt();
+                    grafo.eliminarAeropuerto(idAeropuertoAEliminar);
+                    System.out.println("\n//////// Aeropuerto eliminado con éxito. 🚪 ////////\n");
+                    break;
+
+                case 6:
+                    System.out.print("Ingrese el ID del vuelo a eliminar: ");
+                    int idVueloAEliminar = scanner.nextInt();
+                    grafo.eliminarVuelo(idVueloAEliminar);
+                    System.out.println("\n//////// Vuelo eliminado con éxito. 🚪 ////////\n");
+
+                    break;
+
+                case 7:
+                    System.out.println("\nRecorrido BubbleSort: 🔄");
+                    grafo.bubbleSort();
+                    break;
+
+                case 8:
                     System.out.println("\nRecorrido DFS: 🛰️");
                     try {
                         System.out.print("Ingrese el índice del aeropuerto de inicio: ");
@@ -102,7 +114,20 @@ public class Main {
                     }
                     break;
 
-                case 6:
+                case 9:
+                    System.out.println("\nRecorrido BFS: 🚀");
+                    try {
+                        System.out.print("Ingrese el índice del aeropuerto de inicio: ");
+                        int inicioBFS = scanner.nextInt();
+                        grafo.BFS(inicioBFS);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Error: Índice fuera de rango. Inténtelo de nuevo.");
+                        scanner.nextLine();
+                    }
+
+                    break;
+
+                case 10:
                     System.out.println("\nRecorrido Dijkstra: 🌐");
                     try {
                         System.out.print("Ingrese el índice del aeropuerto de inicio: ");
@@ -112,30 +137,6 @@ public class Main {
                         System.out.println("Error: Índice fuera de rango. Inténtelo de nuevo.");
                         scanner.nextLine();
                     }
-                    break;
-
-                case 7:
-                    System.out.println("\nRecorrido BubbleSort: 🔄");
-                    grafo.bubbleSort();
-                    break;
-
-                case 8:
-                    System.out.print("Ingrese el índice del aeropuerto a eliminar: ");
-                    int idAeropuertoAEliminar = scanner.nextInt();
-                    grafo.eliminarAeropuerto(idAeropuertoAEliminar);
-                    System.out.println("\n//////// Aeropuerto eliminado con éxito. 🚪 ////////\n");
-                    break;
-
-                case 9:
-                    System.out.println("Vuelos: ");
-                    grafo.mostrarTodosLosVuelos();
-                    break;
-
-                case 10:
-                    System.out.print("Ingrese el ID del vuelo a eliminar: ");
-                    int idVueloAEliminar = scanner.nextInt();
-                    grafo.eliminarVuelo(idVueloAEliminar);
-                    System.out.println("\n//////// Vuelo eliminado con éxito. 🚪 ////////\n");
                     break;
 
                 case 11:

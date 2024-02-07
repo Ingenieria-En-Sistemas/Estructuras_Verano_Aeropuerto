@@ -129,18 +129,6 @@ public class ListaAeropuertos {
         return null;
     }
 
-    public void modificarAeropuerto(int id, Aeropuerto aeropuerto) {
-        NodoAeropuerto temp = nodoInicial;
-
-        while (temp != null) {
-            if (temp.getAeropuerto().getId() == id) {
-                temp.setAeropuerto(aeropuerto);
-                break;
-            }
-            temp = temp.getSiguiente();
-        }
-    }
-
     public int size() {
         int count = 0;
         NodoAeropuerto temp = nodoInicial;

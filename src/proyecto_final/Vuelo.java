@@ -1,7 +1,7 @@
 package proyecto_final;
 
 public class Vuelo {
-    private static int contadorID = 0;
+    private int contadorID = 0;
     private int id;
     private Aeropuerto origen;
     private Aeropuerto destino;
