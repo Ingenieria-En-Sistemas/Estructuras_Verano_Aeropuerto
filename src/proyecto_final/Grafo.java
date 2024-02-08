@@ -78,6 +78,14 @@ public class Grafo {
         }
     }
 
+    public void mostrarTodosLosAeropuertos() {
+        System.out.println("\nAeropuertos con su ID al lado:");
+        for (int i = 0; i < vertices; i++) {
+            Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
+            System.out.println(aeropuerto.getNombre() + " (" + aeropuerto.getId() + ")");
+        }
+    }
+
     public int obtenerNuevoIdAeropuerto() {
         return aeropuertos.size();
     }
@@ -179,6 +187,7 @@ public class Grafo {
         }
     }
 
+
     public void bubbleSort() {
         for (int i = 0; i < vertices - 1; i++) {
             for (int j = 0; j < vertices - i - 1; j++) {
@@ -197,6 +206,27 @@ public class Grafo {
         for (int i = 0; i < vertices; i++) {
             Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
             System.out.println(aeropuerto.getNombre() + ": " + aeropuerto.getVuelos().size() + " vuelos");
+        }
+    }
+
+    public void bubbleSortByAverageFlightDuration() {
+        for (int i = 0; i < vertices - 1; i++) {
+            for (int j = 0; j < vertices - i - 1; j++) {
+                double duracionPromedioA = aeropuertos.get(j).getVuelos().duracionPromedio();
+                double duracionPromedioB = aeropuertos.get(j + 1).getVuelos().duracionPromedio();
+
+                if (duracionPromedioA > duracionPromedioB) {
+                    Aeropuerto temp = aeropuertos.get(j);
+                    aeropuertos.set(j, aeropuertos.get(j + 1));
+                    aeropuertos.set(j + 1, temp);
+                }
+            }
+        }
+
+        System.out.println("\nAeropuertos ordenados por duracion promedio de vuelo (Bubble Sort):");
+        for (int i = 0; i < vertices; i++) {
+            Aeropuerto aeropuerto = aeropuertos.obtenerAeropuertoPorIndice(i);
+            System.out.println(aeropuerto.getNombre() + ": " + aeropuerto.getVuelos().duracionPromedio() + " minutos");
         }
     }
 

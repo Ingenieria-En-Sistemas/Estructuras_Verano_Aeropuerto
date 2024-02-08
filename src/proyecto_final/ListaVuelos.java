@@ -71,4 +71,26 @@ public class ListaVuelos {
         return temp.getVuelo();
     }
 
+    public double duracionPromedio() {
+        int contador = 0;
+        int suma = 0;
+        NodoVuelo temp = nodoInicial;
+
+        if (temp == null) {
+            return 0;
+        }
+
+        while (temp != null) {
+            suma += temp.getVuelo().getDuracion();
+            contador++;
+            temp = temp.getSiguiente();
+        }
+
+        if (suma == 0) {
+            return 0;
+        }
+
+        return suma / contador;
+    }
+
 }
