@@ -49,7 +49,7 @@ public class ListaAeropuertos {
 
     public void set(int index, Aeropuerto aeropuerto) {
         if (index < 0 || index >= size()) {
-            throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+            throw new IndexOutOfBoundsException("Indice fuera de rango: " + index);
         }
 
         NodoAeropuerto actual = nodoInicial;
@@ -98,6 +98,7 @@ public class ListaAeropuertos {
 
         prev.setSiguiente(temp.getSiguiente());
     }
+
 
     public int obtenerIndiceAeropuerto(int id) {
         NodoAeropuerto actual = nodoInicial;
